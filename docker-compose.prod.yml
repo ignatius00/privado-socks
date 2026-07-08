@@ -1,0 +1,9 @@
+# docker-compose.prod.yml - Production on homeserver (binds 0.0.0.0 for LAN access)
+# Deploy: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  privado-socks:
+    ports:
+      - "0.0.0.0:1080:1080"   # LAN accessible
+    healthcheck:
+      test: ["CMD", "curl", "-f", "--proxy", "socks5h://127.0.0.1:1080", "--max-time", "10", "https://api.ipify.org"]
